@@ -1,5 +1,5 @@
-import { composePlugins, withNx, withReact } from '@nx/rspack';
+const { composePlugins, withNx, withReact } = require('@nx/rspack');
 
-export default composePlugins(withNx(), withReact(), (config) => {
+module.exports = composePlugins(withNx(), withReact(), (config) => {
   return config;
 });

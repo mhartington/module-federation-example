@@ -1,1 +1,1 @@
-export { default } from './rspack.config';
+module.epxorts = require('./rspack.config');

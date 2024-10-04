@@ -1,10 +1,8 @@
 import { version } from '../../package.json';
-import styles from './ui.module.css';
-
 
 export function Ui() {
   return (
-    <div className={styles['ui']}>
+    <div>
       <code>@acme/ui@v{version}</code>
     </div>
   );
