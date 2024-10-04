@@ -10,61 +10,37 @@
       "command": "netlify deploy --filter blog --prod"
     },
     "build": {
-      "executor": "@nx/webpack:webpack",
+      "executor": "@nx/rspack:rspack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "compiler": "babel",
+        "target": "web",
         "outputPath": "dist/apps/blog",
-        "index": "apps/blog/src/index.html",
-        "baseHref": "/",
         "main": "apps/blog/src/main.ts",
         "tsConfig": "apps/blog/tsconfig.app.json",
-        "assets": ["apps/blog/src/favicon.ico", "apps/blog/src/assets"],
-        "styles": ["apps/blog/src/styles.css"],
-        "scripts": [],
-        "isolatedConfig": true,
-        "webpackConfig": "apps/blog/webpack.config.ts"
+        "rspackConfig": "apps/blog/rspack.config.js",
+        "assets": ["apps/blog/src/favicon.ico", "apps/blog/src/assets"]
       },
       "configurations": {
         "development": {
-          "extractLicenses": false,
-          "optimization": false,
-          "sourceMap": true,
-          "vendorChunk": true
+          "mode": "development"
         },
         "production": {
-          "fileReplacements": [
-            {
-              "replace": "apps/blog/src/environments/environment.ts",
-              "with": "apps/blog/src/environments/environment.prod.ts"
-            }
-          ],
+          "mode": "production",
           "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "webpackConfig": "apps/blog/webpack.config.prod.ts"
+          "sourceMap": false
         }
       }
     },
     "serve": {
-      "executor": "@nx/react:module-federation-dev-server",
-      "defaultConfiguration": "development",
+      "executor": "@nx/rspack:dev-server",
       "options": {
-        "buildTarget": "blog:build",
-        "hmr": true,
-        "port": 4202
+        "buildTarget": "blog:build:development"
       },
       "configurations": {
-        "development": {
-          "buildTarget": "blog:build:development"
-        },
+        "development": {},
         "production": {
-          "buildTarget": "blog:build:production",
-          "hmr": false
+          "buildTarget": "blog:build:production"
         }
       }
     },

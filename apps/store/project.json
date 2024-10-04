@@ -10,61 +10,37 @@
       "command": "netlify deploy --filter store --prod"
     },
     "build": {
-      "executor": "@nx/webpack:webpack",
+      "executor": "@nx/rspack:rspack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "compiler": "babel",
+        "target": "web",
         "outputPath": "dist/apps/store",
-        "index": "apps/store/src/index.html",
-        "baseHref": "/",
         "main": "apps/store/src/main.ts",
         "tsConfig": "apps/store/tsconfig.app.json",
-        "assets": ["apps/store/src/favicon.ico", "apps/store/src/assets"],
-        "styles": ["apps/store/src/styles.css"],
-        "scripts": [],
-        "isolatedConfig": true,
-        "webpackConfig": "apps/store/webpack.config.ts"
+        "rspackConfig": "apps/store/rspack.config.js",
+        "assets": ["apps/store/src/favicon.ico", "apps/store/src/assets"]
       },
       "configurations": {
         "development": {
-          "extractLicenses": false,
-          "optimization": false,
-          "sourceMap": true,
-          "vendorChunk": true
+          "mode": "development"
         },
         "production": {
-          "fileReplacements": [
-            {
-              "replace": "apps/store/src/environments/environment.ts",
-              "with": "apps/store/src/environments/environment.prod.ts"
-            }
-          ],
+          "mode": "production",
           "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "webpackConfig": "apps/store/webpack.config.prod.ts"
+          "sourceMap": false
         }
       }
     },
     "serve": {
-      "executor": "@nx/react:module-federation-dev-server",
-      "defaultConfiguration": "development",
+      "executor": "@nx/rspack:dev-server",
       "options": {
-        "buildTarget": "store:build",
-        "hmr": true,
-        "port": 4203
+        "buildTarget": "store:build:development"
       },
       "configurations": {
-        "development": {
-          "buildTarget": "store:build:development"
-        },
+        "development": {},
         "production": {
-          "buildTarget": "store:build:production",
-          "hmr": false
+          "buildTarget": "store:build:production"
         }
       }
     },

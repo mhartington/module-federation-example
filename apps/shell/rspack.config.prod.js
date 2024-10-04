@@ -1,4 +1,4 @@
-import { composePlugins, withNx } from '@nx/webpack';
+import { composePlugins, withNx } from '@nx/rspack';
 import { withReact } from '@nx/react';
 import { withModuleFederation } from '@nx/react/module-federation';
 
