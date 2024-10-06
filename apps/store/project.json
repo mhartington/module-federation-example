@@ -23,7 +23,6 @@
         "assets": ["apps/store/src/favicon.ico", "apps/store/src/assets"],
         "styles": ["apps/store/src/styles.css"],
         "scripts": [],
-        "isolatedConfig": true,
         "webpackConfig": "apps/store/webpack.config.ts"
       },
       "configurations": {
